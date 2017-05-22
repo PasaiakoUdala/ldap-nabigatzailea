@@ -1,0 +1,6 @@
+{
+  LDAPSERVER: 'ldap://SERVER_IP',
+  BASEDN: 'dc=domain,dc=net',
+  USERNAME: 'cn=USERNAME,cn=users,dc=domain,dc=net',
+  PASSWORD: 'PASSWD'
+}
