@@ -47,7 +47,11 @@ router.get('/getgroupandusers/:cn', function(req, res, next) {
     var groupName = param;
 
     var ad = new ActiveDirectory(config);
-    // ad.getUsersForGroupWithGroups(groupName, function(err, users) {
+    /**************************************************************************************************************
+     **************************************************************************************************************
+     **** ADI!!!! funtzio hau ez da existitzen liburutegian, nik sortua da beraz gehitu behar da
+     *************************************************************************************************************
+     *************************************************************************************************************/
     ad.getUsersForGroupWithGroups(groupName, function(err, users) {
         if (err) {
             console.log('ERROR: ' +JSON.stringify(err));
@@ -60,6 +64,7 @@ router.get('/getgroupandusers/:cn', function(req, res, next) {
             res.json(users);
         }
     });
+
 
 });
 
@@ -82,6 +87,25 @@ router.get('/users', function(req, res, next) {
     });
 
 });
+
+router.get('/user/:user', function(req, res, next) {
+    var param = req.params.user;
+    var sAMAccountName = param;
+
+    var ad = new ActiveDirectory(config);
+    ad.findUser(sAMAccountName, function(err, user) {
+        if (err) {
+            console.log('ERROR: ' +JSON.stringify(err));
+            return;
+        }
+
+        if (! user) console.log('User: ' + sAMAccountName + ' not found.');
+        else res.json(user);
+    });
+
+});
+
+
 
 router.get('/usergroups/:user', function(req, res, next) {
     var param = req.params.user;
