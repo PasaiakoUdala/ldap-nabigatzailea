@@ -24,7 +24,7 @@
 
     <div class="col-md-6">
         <div class="list-group">
-            <a ng-repeat="ug in usergroups" href="javascript:void(0)" class="list-group-item" ng-click="getForest(ug.cn);selectRol($index)" ng-class="{active: $index == selectedRol}">
+            <a ng-repeat="ug in usergroups" href="javascript:void(0)" class="list-group-item" ng-click="selectRol($index)" ng-class="{active: $index == selectedRol}">
                 {{ug.cn }}
             </a>
         </div>
