@@ -35,6 +35,14 @@ router.get('/sailak', function(req, res, next) {
         if ((! groups) || (groups.length == 0)) console.log('No groups found.');
         else {
             // console.log('findGroups: '+JSON.stringify(groups));
+            groups.sort(function(a, b){
+                var nameA=a.dn.toLowerCase(), nameB=b.dn.toLowerCase()
+                if (nameA < nameB) //sort string ascending
+                    return -1
+                if (nameA > nameB)
+                    return 1
+                return 0 //default return value (no sorting)
+            })
             res.json (groups);
         }
     });
@@ -61,6 +69,14 @@ router.get('/getgroupandusers/:cn', function(req, res, next) {
         if (! users) console.log('Group: ' + groupName + ' not found.');
         else {
             // console.log(JSON.stringify(users));
+            users.sort(function(a, b){
+                var nameA=a.dn.toLowerCase(), nameB=b.dn.toLowerCase()
+                if (nameA < nameB) //sort string ascending
+                    return -1
+                if (nameA > nameB)
+                    return 1
+                return 0 //default return value (no sorting)
+            })
             res.json(users);
         }
     });
@@ -82,6 +98,16 @@ router.get('/users', function(req, res, next) {
         if ((! users) || (users.length == 0)) console.log('No users found.');
         else {
             // console.log('findUsers: '+JSON.stringify(users));
+
+            users.sort(function(a, b){
+                var nameA=a.dn.toLowerCase(), nameB=b.dn.toLowerCase()
+                if (nameA < nameB) //sort string ascending
+                    return -1
+                if (nameA > nameB)
+                    return 1
+                return 0 //default return value (no sorting)
+            })
+
             res.json(users)
         }
     });
@@ -105,8 +131,6 @@ router.get('/user/:user', function(req, res, next) {
 
 });
 
-
-
 router.get('/usergroups/:user', function(req, res, next) {
     var param = req.params.user;
     var sAMAccountName = param;
@@ -119,8 +143,19 @@ router.get('/usergroups/:user', function(req, res, next) {
         }
 
         if (! groups) console.log('User: ' + sAMAccountName + ' not found.');
-        // else console.log(JSON.stringify(groups));
-        else res.json(groups);
+
+        else {
+            groups.sort(function(a, b){
+                var nameA=a.dn.toLowerCase(), nameB=b.dn.toLowerCase()
+                if (nameA < nameB) //sort string ascending
+                    return -1
+                if (nameA > nameB)
+                    return 1
+                return 0 //default return value (no sorting)
+            })
+
+            res.json(groups);
+        }
     });
 
 });
