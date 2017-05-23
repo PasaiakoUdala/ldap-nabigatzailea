@@ -20,18 +20,12 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Menua</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">LDAP Nabigatzailea</a>
+            <a class="navbar-brand" href="#/">LDAP Nabigatzailea</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Hasiera</a></li>
-                <li><a href="#about">Erabiltzaileak</a></li>
+                <li><a href="#!/">Saila</a></li>
+                <li><a href="#!/erabiltzaileak">Erabiltzaileak</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -39,69 +33,7 @@
 
 <div class="container">
 
-    <div class="row">
-
-        <div class="col-md-3"><h3>Saila</h3></div>
-        <div class="col-md-3"><h3>Taldea</h3></div>
-        <div class="col-md-3"><h3>Rola</h3></div>
-        <div class="col-md-3"><h3>Erabiltzaileak</h3></div>
-
-    </div>
-
-    <div class="row">
-
-        <div class="col-md-3">
-            <div class="list-group">
-                <a ng-repeat="saila in sailak" href="#" class="list-group-item" ng-click="getGroupAndUsers(saila.cn);selectSaila($index)" ng-class="{active: $index == selectedSaila}">
-                    {{saila.cn }}
-                </a>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="list-group">
-                <a ng-repeat="group in groupandusers" href="#" class="list-group-item" ng-click="getRolesAndUsers(group.cn);selectTaldea($index)" ng-class="{active: $index == selectedTaldea}">
-                    {{ group.cn }}
-                </a>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="list-group">
-                <a ng-repeat="role in rolesandusers" href="#" class="list-group-item" ng-click="getRoleUsers(role.cn);selectRol($index)" ng-class="{active: $index == selectedRol}">
-                    {{ role.cn }}</a>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="list-group">
-                <a ng-repeat="r in roleusers" href="#" class="list-group-item" ng-click="userInfo(r);selectUser($index)" ng-class="{active: $index == selectedUser}">
-                    {{ r.displayName }}</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">&nbsp;</div>
-    <div class="row">
-        <div class="col-md-4">&nbsp;</div>
-        <div class="col-md-4">
-            <div class="panel panel-info"  ng-show="currentUser != null">
-                <div class="panel-heading">
-                    <h3 class="panel-title">{{ currentUser.displayName}}</h3>
-                </div>
-                <div class="panel-body">
-                    <dl>
-                        <!--<dt>Izen abizenak</dt>-->
-                        <!--<dd>{{ currentUser.displayName}}</dd>-->
-                        <dt>NAN</dt>
-                        <dd>{{ currentUser.employeeID}}</dd>
-                        <dt>Lanpostua</dt>
-                        <dd>{{ currentUser.description }}</dd>
-                        <dt>mail</dt>
-                        <dd>{{ currentUser.mail}}</dd>
-                    </dl>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">&nbsp;</div>
-    </div>
+    <div ng-view=""></div>
 
 </div>
 

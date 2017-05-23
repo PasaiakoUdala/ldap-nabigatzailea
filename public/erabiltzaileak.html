@@ -1,0 +1,60 @@
+
+<div class="row">
+
+    <div class="col-md-6"><h3>Erabiltzailea</h3></div>
+    <div class="col-md-6"><h3>Taldea</h3></div>
+    
+</div>
+<div class="row">
+
+    <div class="col-md-3"><h5><label>Bilatu: <input ng-model="searchText"></label></h5></div>
+    <div class="col-md-6"></div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="list-group">
+            <a ng-repeat="user in users| filter:searchText" href="javascript:void(0)" class="list-group-item" ng-click="getForest(user.cn);selectSaila($index)" ng-class="{active: $index == selectedSaila}">
+                {{user.cn }}
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="list-group">
+            <a ng-repeat="ug in usergroups" href="javascript:void(0)" class="list-group-item" ng-click="getForest(ug.cn);selectRol($index)" ng-class="{active: $index == selectedRol}">
+                {{ug.cn }}
+            </a>
+        </div>
+    </div>
+
+
+
+</div>
+
+<div class="row">&nbsp;</div>
+<div class="row">
+    <div class="col-md-4">&nbsp;</div>
+    <div class="col-md-4">
+        <div class="panel panel-info"  ng-show="currentUser != null">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ currentUser.displayName}}</h3>
+            </div>
+            <div class="panel-body">
+                <dl>
+                    <!--<dt>Izen abizenak</dt>-->
+                    <!--<dd>{{ currentUser.displayName}}</dd>-->
+                    <dt>NAN</dt>
+                    <dd>{{ currentUser.employeeID}}</dd>
+                    <dt>Lanpostua</dt>
+                    <dd>{{ currentUser.description }}</dd>
+                    <dt>mail</dt>
+                    <dd>{{ currentUser.mail}}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">&nbsp;</div>
+</div>

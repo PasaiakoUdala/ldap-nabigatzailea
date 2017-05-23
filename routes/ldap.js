@@ -63,6 +63,42 @@ router.get('/getgroupandusers/:cn', function(req, res, next) {
 
 });
 
+router.get('/users', function(req, res, next) {
 
+    var query = 'cn=*';
+
+    var ad = new ActiveDirectory(config);
+    ad.findUsers(query, function(err, users) {
+        if (err) {
+            console.log('ERROR: ' +JSON.stringify(err));
+            return;
+        }
+
+        if ((! users) || (users.length == 0)) console.log('No users found.');
+        else {
+            // console.log('findUsers: '+JSON.stringify(users));
+            res.json(users)
+        }
+    });
+
+});
+
+router.get('/usergroups/:user', function(req, res, next) {
+    var param = req.params.user;
+    var sAMAccountName = param;
+
+    var ad = new ActiveDirectory(config);
+    ad.getGroupMembershipForUser(sAMAccountName, function(err, groups) {
+        if (err) {
+            console.log('ERROR: ' +JSON.stringify(err));
+            return;
+        }
+
+        if (! groups) console.log('User: ' + sAMAccountName + ' not found.');
+        // else console.log(JSON.stringify(groups));
+        else res.json(groups);
+    });
+
+});
 
 module.exports = router;
