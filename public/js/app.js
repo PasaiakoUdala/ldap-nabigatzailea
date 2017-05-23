@@ -93,8 +93,14 @@ app.controller('erabiltzaileakController', function ($scope, $http) {
     });
 
     $scope.getForest = function(user) {
+        $scope.searchText = user;
         $http.get('/api/usergroups/'+user).then(function (result) {
             $scope.usergroups = result.data;
+            console.log("calling")
+            console.log($scope.selectedUser)
+
+            $scope.selectUser(0)
+            console.log($scope.selectedUser)
         });
     }
 
@@ -126,6 +132,8 @@ app.controller('erabiltzaileakController', function ($scope, $http) {
 
     $scope.selectedUser = -1;
     $scope.selectUser= function(index) {
+        console.log("called")
+        console.log(index)
         $scope.selectedUser = index;
     };
 
