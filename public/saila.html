@@ -32,7 +32,7 @@
     </div>
     <div class="col-md-3">
         <div class="list-group">
-            <a ng-repeat="r in roleusers" href="javascript:void(0)" class="list-group-item" ng-click="userInfo(r);selectUser($index)" ng-class="{active: $index == selectedUser}">
+            <a ng-repeat="r in roleusers" href="javascript:void(0)" class="list-group-item" data-toggle='modal' data-target='#cinfo' data-ng-click='userInfo(r);selectUser($index)' ng-class="{active: $index == selectedUser}">
                 {{ r.displayName }}</a>
         </div>
     </div>
@@ -40,28 +40,76 @@
 </div>
 
 <div class="row">&nbsp;</div>
-<div class="row">
-    <div class="col-md-4">&nbsp;</div>
-    <div class="col-md-4">
-        <div class="panel panel-info"  ng-show="currentUser != null">
-            <div class="panel-heading">
-                <h3 class="panel-title">{{ currentUser.displayName}}</h3>
+<!--<div class="row">-->
+    <!--<div class="col-md-4">&nbsp;</div>-->
+    <!--<div class="col-md-4">-->
+        <!--<div class="panel panel-info"  ng-show="currentUser != null">-->
+            <!--<div class="panel-heading">-->
+                <!--<h3 class="panel-title">{{ currentUser.displayName}}</h3>-->
+            <!--</div>-->
+            <!--<div class="panel-body">-->
+                <!--<dl>-->
+                    <!--&lt;!&ndash;<dt>Izen abizenak</dt>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<dd>{{ currentUser.displayName}}</dd>&ndash;&gt;-->
+                    <!--<dt>NAN</dt>-->
+                    <!--<dd>{{ currentUser.employeeID}}</dd>-->
+                    <!--<dt>Lanpostua</dt>-->
+                    <!--<dd>{{ currentUser.description }}</dd>-->
+                    <!--<dt>Email</dt>-->
+                    <!--<dd>{{ currentUser.mail}}</dd>-->
+                    <!--<dt>Extensioa</dt>-->
+                    <!--<dd>{{ currentUser.extensionName }}</dd>-->
+                <!--</dl>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-md-4">&nbsp;</div>-->
+<!--</div>-->
+
+<!-- Modal start -->
+<div class='modal fade' id='cinfo' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog' role='document'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='close' data-dismiss='modal'>
+                    <span aria-hidden='true'>&times;</span>
+                    <span class='sr-only'>Close</span></button>
+                <h4 class='modal-title' id='myModalLabel'>{{ currentUser.displayName}}</h4>
             </div>
-            <div class="panel-body">
-                <dl>
-                    <!--<dt>Izen abizenak</dt>-->
-                    <!--<dd>{{ currentUser.displayName}}</dd>-->
-                    <dt>NAN</dt>
-                    <dd>{{ currentUser.employeeID}}</dd>
-                    <dt>Lanpostua</dt>
-                    <dd>{{ currentUser.description }}</dd>
-                    <dt>Email</dt>
-                    <dd>{{ currentUser.mail}}</dd>
-                    <dt>Extensioa</dt>
-                    <dd>{{ currentUser.extensionName }}</dd>
-                </dl>
+            <div class='modal-body'>
+                <div class="row">&nbsp;</div>
+                <div class="row">&nbsp;</div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-md-2">&nbsp;</div>
+                    <div class="col-md-8">
+                        <table class="table table-bordered table-hover">
+                            <tr>
+                                <td>NAN</td>
+                                <td>{{ currentUser.employeeID}}</td>
+                            </tr>
+                            <tr>
+                                <td>Lanpostua</td>
+                                <td>{{ currentUser.description}}</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>{{ currentUser.mail}}</td>
+                            </tr>
+                            <tr>
+                                <td>Extensioa</td>
+                                <td>{{ currentUser.extensionName}}</td>
+                            </tr>
+                        </table>
+                     </div>
+                    <div class="col-md-2">&nbsp;</div>
+            </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">&nbsp;</div>
+                <div class="row">&nbsp;</div>
+            <div class='modal-footer'><button type='button' class='btn btn-default' data-dismiss='modal'>Itxi</button>
             </div>
         </div>
     </div>
-    <div class="col-md-4">&nbsp;</div>
 </div>
+<!-- Modal end -->
