@@ -16,7 +16,19 @@ var config = {
     baseDN: options.storageConfig.BASEDN,
     username: options.storageConfig.USERNAME,
     password: options.storageConfig.PASSWORD,
-    log:my_log
+    log:my_log,
+    attributes: {
+        user: [
+            'dn',
+            'userPrincipalName', 'sAMAccountName', /*'objectSID',*/ 'mail',
+            'lockoutTime', 'whenCreated', 'pwdLastSet', 'userAccountControl',
+            'employeeID', 'sn', 'givenName', 'initials', 'cn', 'displayName',
+            'comment', 'description', 'extensionName'
+        ],
+        group: [
+            'dn', 'cn', 'description'
+        ]
+    }
 };
 
 
@@ -132,8 +144,7 @@ router.get('/user/:user', function(req, res, next) {
 });
 
 router.get('/usergroups/:user', function(req, res, next) {
-    var param = req.params.user;
-    var sAMAccountName = param;
+    var sAMAccountName = req.params.user;
 
     var ad = new ActiveDirectory(config);
     ad.getGroupMembershipForUser(sAMAccountName, function(err, groups) {
@@ -145,14 +156,14 @@ router.get('/usergroups/:user', function(req, res, next) {
         if (! groups) console.log('User: ' + sAMAccountName + ' not found.');
 
         else {
-            groups.sort(function(a, b){
-                var nameA=a.dn.toLowerCase(), nameB=b.dn.toLowerCase()
+            groups.sort(function (a, b) {
+                var nameA = a.dn.toLowerCase(), nameB = b.dn.toLowerCase()
                 if (nameA < nameB) //sort string ascending
-                    return -1
+                    return -1;
                 if (nameA > nameB)
-                    return 1
+                    return 1;
                 return 0 //default return value (no sorting)
-            })
+            });
 
             res.json(groups);
         }
