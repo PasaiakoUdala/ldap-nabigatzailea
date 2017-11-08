@@ -91,23 +91,36 @@ app.controller('erabiltzaileakController', function ($scope, $http) {
     $http.get('/api/users').then(function (result) {
         $scope.users = result.data;
     });
-
-    $scope.getForest = function(user) {
+    $scope.usergroups=[];
+    $scope.getForest = function (user) {
         $scope.searchText = user;
-        $http.get('/api/usergroups/'+user).then(function (result) {
-            $scope.usergroups = result.data;
-            console.log("calling")
-            console.log($scope.selectedUser)
+        $http.get('/api/usergroups/' + user).then(function (result) {
+            console.log(result.data);
 
-            $scope.selectUser(0)
-            console.log($scope.selectedUser)
+            var log = [];
+
+            // utsuneak sortu
+            if ($scope.selectedSaila > 2) {
+                for (i = 0; i < $scope.selectedSaila - 2; i++) {
+                    log.push('skip'+i);
+                }
+            }
+
+            angular.forEach(result.data, function(value, key) {
+                console.log(value.cn);
+                this.push(value.cn);
+            }, log);
+
+            $scope.usergroups = log;
+            $scope.selectUser(0);
+            console.log("SelectdSaila: " + $scope.selectedSaila);
         });
-    }
+    };
 
 
-    $scope.userInfo = function(user) {
+    $scope.userInfo = function (user) {
         $scope.currentUser = user;
-    }
+    };
 
     $scope.selectedSaila = -1;
     $scope.selectSaila= function(index) {
@@ -132,8 +145,6 @@ app.controller('erabiltzaileakController', function ($scope, $http) {
 
     $scope.selectedUser = -1;
     $scope.selectUser= function(index) {
-        console.log("called")
-        console.log(index)
         $scope.selectedUser = index;
     };
 

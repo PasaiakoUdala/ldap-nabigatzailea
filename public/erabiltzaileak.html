@@ -17,7 +17,7 @@
     <div class="col-md-6">
         <div class="list-group">
             
-            <a ng-repeat="user in users| filter:searchText" href="javascript:void(0)" class="list-group-item" ng-click="getForest(user.cn);selectSaila($index)" ng-class="{active: $index == selectedSaila}">
+            <a ng-repeat="user in users" href="javascript:void(0)" class="list-group-item" ng-click="getForest(user.cn);selectSaila($index)" ng-class="{active: $index == selectedSaila}">
                 {{user.cn }}
             </a>
         </div>
@@ -26,7 +26,9 @@
     <div class="col-md-6">
         <div class="list-group">
             <a ng-repeat="ug in usergroups" href="javascript:void(0)" class="list-group-item" ng-click="selectRol($index)" ng-class="{active: $index == selectedRol}">
-                {{ug.cn }}
+                <span ng-if="ug.indexOf('skip')==-1">{{ ug }}</span>
+                <span ng-if="ug.indexOf('skip')!=-1">&nbsp;</span>
+
             </a>
         </div>
     </div>
