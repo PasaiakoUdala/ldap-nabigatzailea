@@ -17,6 +17,11 @@ app.config(function($routeProvider) {
             controller: 'erabiltzaileakController'
         })
 
+        .when('/rolak', {
+            templateUrl: 'rolak.html',
+            controller: 'rolakController'
+        })
+
 });
 
 app.controller('mainController', function ($scope, $http) {
@@ -120,6 +125,66 @@ app.controller('erabiltzaileakController', function ($scope, $http) {
 
     $scope.userInfo = function (user) {
         $scope.currentUser = user;
+    };
+
+    $scope.selectedSaila = -1;
+    $scope.selectSaila= function(index) {
+        $scope.selectedTaldea = -1;
+        $scope.selectedRol = -1;
+        $scope.selectedUser = -1;
+        $scope.selectedSaila = index;
+    };
+
+    $scope.selectedTaldea = -1;
+    $scope.selectTaldea= function(index) {
+        $scope.selectedRol = -1;
+        $scope.selectedUser = -1;
+        $scope.selectedTaldea = index;
+    };
+
+    $scope.selectedRol = -1;
+    $scope.selectRol= function(index) {
+        $scope.selectedUser = -1;
+        $scope.selectedRol = index;
+    };
+
+    $scope.selectedUser = -1;
+    $scope.selectUser= function(index) {
+        $scope.selectedUser = index;
+    };
+
+});
+
+app.controller('rolakController', function ($scope, $http) {
+
+    $http.get('/api/rolak').then(function (result) {
+        $scope.rolak  = result.data;
+    });
+
+    $scope.usergroups=[];
+    $scope.getTaldeak = function (rol) {
+        $scope.searchText = rol;
+        $http.get('/api/rol/' + rol).then(function (result) {
+            console.log(result.data);
+
+            var log = [];
+
+            // utsuneak sortu
+            if ($scope.selectedSaila > 2) {
+                for (i = 0; i < $scope.selectedSaila - 2; i++) {
+                    log.push('skip'+i);
+                }
+            }
+
+            angular.forEach(result.data, function(value, key) {
+                console.log(value.cn);
+                this.push(value.cn);
+            }, log);
+
+            $scope.usergroups = log;
+            $scope.selectUser(0);
+            console.log("SelectdSaila: " + $scope.selectedSaila);
+        });
     };
 
     $scope.selectedSaila = -1;

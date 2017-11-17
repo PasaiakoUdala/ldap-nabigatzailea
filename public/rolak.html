@@ -1,0 +1,40 @@
+
+<div class="row">
+
+    <div class="col-md-6"><h3>Erabiltzailea</h3></div>
+    <div class="col-md-6"><h3>Taldea</h3></div>
+
+</div>
+<div class="row">
+
+    <div class="col-md-3"><h5><label>Bilatu: <input ng-model="searchText"></label></h5></div>
+    <div class="col-md-6"></div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="list-group">
+            
+            <a ng-repeat="rol in rolak" href="javascript:void(0)" class="list-group-item" ng-click="getTaldeak(rol.cn);selectSaila($index)" ng-class="{active: $index == selectedSaila}">
+                {{rol.cn }}
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="list-group">
+            <a ng-repeat="ug in usergroups" href="javascript:void(0)" class="list-group-item" ng-click="selectRol($index)" ng-class="{active: $index == selectedRol}">
+                <span ng-if="ug.indexOf('skip')==-1">{{ ug }}</span>
+                <span ng-if="ug.indexOf('skip')!=-1">&nbsp;</span>
+
+            </a>
+        </div>
+    </div>
+
+
+
+</div>
+
+<div class="row">&nbsp;</div>

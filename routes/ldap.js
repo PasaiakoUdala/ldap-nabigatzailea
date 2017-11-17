@@ -171,4 +171,62 @@ router.get('/usergroups/:user', function(req, res, next) {
 
 });
 
+router.get('/rolak', function (req, res, next) {
+
+    var query = 'CN=*ROL-*';
+
+    var ad = new ActiveDirectory(config);
+    ad.findGroups(query, function (err, groups) {
+        if (err) {
+            console.log('ERROR: ' + JSON.stringify(err));
+            return;
+        }
+
+        if ((!groups) || (groups.length == 0)) console.log('No groups found.');
+        else {
+            groups.sort(function (a, b) {
+                var nameA = a.dn.toLowerCase(), nameB = b.dn.toLowerCase()
+                if (nameA < nameB) //sort string ascending
+                    return -1;
+                if (nameA > nameB)
+                    return 1;
+                return 0 //default return value (no sorting)
+            });
+
+            res.json(groups);
+        }
+    });
+
+});
+
+
+router.get('/rol/:rola', function (req, res, next) {
+
+    var sAMAccountName = req.params.rola;
+
+    var ad = new ActiveDirectory(config);
+    ad.getGroupMembershipForGroup(sAMAccountName, function(err, groups) {
+        if (err) {
+            console.log('ERROR: ' +JSON.stringify(err));
+            return;
+        }
+
+        if (! groups) console.log('User: ' + sAMAccountName + ' not found.');
+
+        else {
+            groups.sort(function (a, b) {
+                var nameA = a.dn.toLowerCase(), nameB = b.dn.toLowerCase()
+                if (nameA < nameB) //sort string ascending
+                    return -1;
+                if (nameA > nameB)
+                    return 1;
+                return 0 //default return value (no sorting)
+            });
+
+            res.json(groups);
+        }
+    });
+
+});
+
 module.exports = router;
