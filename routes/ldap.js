@@ -199,7 +199,6 @@ router.get('/rolak', function (req, res, next) {
 
 });
 
-
 router.get('/rol/:rola', function (req, res, next) {
 
     var sAMAccountName = req.params.rola;
@@ -226,6 +225,12 @@ router.get('/rol/:rola', function (req, res, next) {
             res.json(groups);
         }
     });
+
+});
+
+router.get('/baimenak/:user', function () {
+
+
 
 });
 
